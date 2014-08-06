@@ -1,0 +1,6 @@
+!record {model: openacademy.course, id: course_id_0}:
+	name = "Algebra"
+	description = "Toto and tata"
+	
+!assert {model: openacademy.course, id: course_id_0}:
+	description != "foo"

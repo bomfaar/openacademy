@@ -9,6 +9,9 @@
         "security/ir.model.access.csv",
         "wizard/create_attendee_view.xml",
     ],
+    'test': [
+        'test/test_runbot.yml',
+    ],
     "installable":True,
     "application":True,
     "active":False,
