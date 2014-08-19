@@ -1,0 +1,11 @@
+-
+    Create a course
+-
+    !record {model: openacademy.course, id: course_1}:
+        name: 'Algebra'
+        description: 'foundations of algebra'
+-
+    Test that the course actually has a name
+-
+    !assert {model: openacademy.course, id: course_1,string: Test the name attribute}: 
+        - name == 'Algebra'

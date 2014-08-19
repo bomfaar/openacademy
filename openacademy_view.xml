@@ -6,19 +6,7 @@
 			<field name="name">Courses</field>
 			<field name="res_model">openacademy.course</field>
 			<field name="view_type">form</field>
-			<field name="view_mode">tree,form,graph</field>
-		</record>
-
-		<record model="ir.ui.view" id="openacademy_course_graph_view">
-			<field name="name">openacademy.course.graph</field>
-			<field name="model">openacademy.course</field>
-			<field name="type">graph</field>
-			<field name="arch" type="xml">
-				<graph string="Participations by Courses" type="bar">
-					<field name="name" />
-					<field name="attendee_count" operator="+" />
-				</graph>
-			</field>
+			<field name="view_mode">tree,form</field>
 		</record>
 
 		<record model="ir.ui.view" id="course_tree_view">
@@ -28,7 +16,6 @@
 			<field name="arch" type="xml">
 				<tree string="Course Tree">
 					<field name="name" />
-					<field name="responsible_id" />
 				</tree>
 			</field>
 		</record>
@@ -40,130 +27,10 @@
 			<field name="arch" type="xml">
 				<form string="Course Form">
 					<field name="name" />
-					<field name="responsible_id" />
-					<notebook colspan="4">
-						<page string="Description">
-							<field name="description" nolabel="1" colspan="4" />
-						</page>
-						<page string="Sessions">
-							<field name="session_ids" nolabel="1" colspan="4" mode="tree,form">
-								<tree string="Registered sessions">
-									<field name="name" />
-									<field name="instructor_id" />
-								</tree>
-								<form string="Registered sessions">
-									<field name="name" />
-									<field name="instructor_id" />
-								</form>
-							</field>
-						</page>
-					</notebook>
+					<field name="description" />
 				</form>
 			</field>
 		</record>
-
-
-
-		<!-- ======= SESSION ====== -->
-
-
-		<record model="ir.ui.view" id="session_calendar_view">
-			<field name="name">session.calendar</field>
-			<field name="model">openacademy.session</field>
-			<field name="type">calendar</field>
-			<field name="arch" type="xml">
-				<calendar string="Session Calendar" date_start="start_date"
-					date_delay="duration" day_length="1" color="instructor_id">
-					<field name="name" />
-				</calendar>
-			</field>
-		</record>
-
-		<record model="ir.ui.view" id="session_gantt">
-			<field name="name">session.gantt</field>
-			<field name="model">openacademy.session</field>
-			<field name="type">gantt</field>
-			<field name="arch" type="xml">
-				<gantt string="Session Gantt" date_start="start_date"
-					date_delay="duration" day_length="1" color="course_id">
-					<level object="res.partner" link="instructor_id">
-						<field name="name" />
-					</level>
-				</gantt>
-			</field>
-		</record>
-
-		<record model="ir.ui.view" id="openacademy_session_graph_view">
-			<field name="name">openacademy.session.graph</field>
-			<field name="model">openacademy.session</field>
-			<field name="type">graph</field>
-			<field name="arch" type="xml">
-				<graph string="Participations by Courses" type="bar">
-					<field name="course_id" />
-					<field name="attendee_count" operator="+" />
-				</graph>
-			</field>
-		</record>
-
-		<record model="ir.actions.act_window" id="session_list_action">
-			<field name="name">Sessions</field>
-			<field name="res_model">openacademy.session</field>
-			<field name="view_type">form</field>
-			<field name="view_mode">tree,form,calendar,gantt,graph</field>
-		</record>
-
-		<record model="ir.ui.view" id="session_tree_view">
-			<field name="name">session.tree</field>
-			<field name="model">openacademy.session</field>
-			<field name="type">tree</field>
-			<field name="arch" type="xml">
-				<tree string="Session Tree" colors="blue: duration &lt; 5;red: duration >= 15">
-					<field name="name" />
-					<field name="course_id" />
-					<field name="duration" invisible="1" />
-					<field name="remaining_seats_percent" widget="progressbar" />
-				</tree>
-			</field>
-		</record>
-
-		<record model="ir.ui.view" id="session_form_view">
-			<field name="name">session.form</field>
-			<field name="model">openacademy.session</field>
-			<field name="type">form</field>
-			<field name="arch" type="xml">
-				<form string="Session Form">
-					<group colspan="2" col="2">
-						<separator string="General" colspan="2" />
-						<field name="name" />
-						<field name="instructor_id"
-							domain="['|',
-									('instructor','=',True),
-									('category_id.name','=',('Teacher Level 1','Teacher Level 2'))]" />
-						<field name="course_id" />
-						<field name="active" />
-						<field name="seats" on_change="onchange_remaining_seats(seats,attendee_ids)" />
-						<field name="remaining_seats_percent" widget="progressbar" />
-					</group>
-					<group colspan="2" col="2">
-						<separator string="Schedule" colspan="2" />
-						<field name="start_date" />
-						<field name="duration" />
-					</group>
-					<separator string="Attendees" colspan="4" />
-					<field name="attendee_ids" colspan="4" nolabel="1" mode="tree,form"
-						on_change="onchange_remaining_seats(seats,attendee_ids)">
-						<form string="Attendees">
-							<field name="partner_id" />
-						</form>
-						<tree string="Attendees" editable="bottom">
-							<field name="partner_id" />
-						</tree>
-					</field>
-				</form>
-			</field>
-		</record>
-
-
 
 		<!-- ======= MENU ====== -->
 
@@ -171,8 +38,5 @@
 
 		<menuitem id="course_menu" name="Courses" parent="openacademy_menu"
 			action="course_list_action" />
-
-		<menuitem id="session_menu" name="Sessions" parent="openacademy_menu"
-			action="session_list_action" />
 	</data>
 </openerp>
