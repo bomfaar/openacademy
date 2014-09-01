@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+		<!-- ======= COURSE ====== -->
+		<record model="ir.actions.act_window" id="course_list_action">
+			<field name="name">Courses</field>
+			<field name="res_model">openacademy.course</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<record model="ir.ui.view" id="course_tree_view">
+			<field name="name">course.tree</field>
+			<field name="model">openacademy.course</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Course Tree">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="course_form_view">
+			<field name="name">course.form</field>
+			<field name="model">openacademy.course</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Course Form">
+					<field name="name" />
+					<field name="description" />
+				</form>
+			</field>
+		</record>
+
+		<!-- ======= MENU ====== -->
+
+		<menuitem id="openacademy_menu" name="Open Academy" />
+
+		<menuitem id="course_menu" name="Courses" parent="openacademy_menu"
+			action="course_list_action" />
+	</data>
+</openerp>
