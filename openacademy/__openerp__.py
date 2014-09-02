@@ -8,7 +8,7 @@
     - training sessions
     - attendees registration
     """,
-    'data': ['openacademy_view.xml', ],
+    'data': ['openacademy_view.xml', 'security/ir.model.access.csv', ],
     'test': ['test/test_course_name.yml', ],
     'installable': True,
     'application': True,
